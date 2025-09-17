@@ -5,18 +5,22 @@ export default function PlayListItem({
   artist = "Artist",
   length = "3:45",
   selected = false,
+  onClick,
 }) {
   return (
     <div
-      className={`flex justify-between items-center px-4 py-2 rounded-md cursor-pointer ${
-        selected ? "bg-gray-200" : "hover:bg-gray-100"
+      className={`flex justify-between items-center px-4 py-2 cursor-pointer transition-colors ${
+        selected
+          ? "bg-[var(--color-tahiti)]"
+          : "hover:bg-[var(--color-bermuda)]"
       }`}
+      onClick={onClick}
     >
       <div>
-        <p className="text-sm font-medium text-gray-900">{title}</p>
-        <p className="text-xs text-gray-600">{artist}</p>
+        <p className="text-sm font-medium text-white">{title}</p>
+        <p className="text-xs text-white">{artist}</p>
       </div>
-      <span className="text-xs text-gray-500">{length}</span>
+      <span className="text-xs text-white">{length}</span>
     </div>
   );
 }

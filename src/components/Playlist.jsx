@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PlayListItem from "./PlayListItem";
 
 export default function Playlist() {
@@ -15,15 +15,19 @@ export default function Playlist() {
     { title: "Shatter the Silence", artist: "Thunderclap Echo", length: "8:22" },
   ];
 
+  const [selectedIndex, setSelectedIndex] = useState(0); // start with first song selected
+
   return (
-    <div className="flex flex-col gap-2 p-6 bg-white rounded-xl shadow w-80">
+    <div className="flex flex-col gap-4 p-6 bg-[var(--color-midnight)] rounded-xl shadow w-80">
+      <h2 className="text-lg font-bold text-white">Playlist</h2>
       {songs.map((song, index) => (
         <PlayListItem
           key={index}
           title={song.title}
           artist={song.artist}
           length={song.length}
-          selected={index === 0} // highlight the first one
+          selected={index === selectedIndex} // highlight based on state
+          onClick={() => setSelectedIndex(index)} // change selected song on click
         />
       ))}
     </div>

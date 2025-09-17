@@ -1,22 +1,52 @@
 import React from "react";
-import { Shuffle, SkipBack, Play, SkipForward, Gauge } from "lucide-react";
+import { Shuffle, Rewind, Play, FastForward } from "lucide-react";
 
 export default function PlayControls() {
+
+  const activeButton = "play"; // options: "speed", "play", "shuffle", etc.
+
   return (
     <div className="flex items-center justify-center gap-6">
-      <button className="p-2 hover:scale-110 transition">
-        <Gauge size={24} />
+      {/* Speed / 1x */}
+      <button
+        className={`px-3 py-2 font-semibold transition ${
+          activeButton === "speed"
+            ? "text-white bg-[var(--color-tahiti)]"
+            : "text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)]"
+        }`}
+      >
+        1x
       </button>
-      <button className="p-2 hover:scale-110 transition">
-        <SkipBack size={24} />
+
+      {/* Rewind */}
+      <button className="text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)] transition">
+        <Rewind size={24} />
       </button>
-      <button className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition">
+
+      {/* Play */}
+      <button
+        className={`transition ${
+          activeButton === "play"
+            ? "text-white bg-[var(--color-bermuda)]"
+            : "text-[var(--color-bermuda)] hover:text-[var(--color-tahiti)]"
+        }`}
+      >
         <Play size={28} />
       </button>
-      <button className="p-2 hover:scale-110 transition">
-        <SkipForward size={24} />
+
+      {/* Fast Forward */}
+      <button className="text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)] transition">
+        <FastForward size={24} />
       </button>
-      <button className="p-2 hover:scale-110 transition">
+
+      {/* Shuffle */}
+      <button
+        className={`transition ${
+          activeButton === "shuffle"
+            ? "text-white bg-[var(--color-tahiti)]"
+            : "text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)]"
+        }`}
+      >
         <Shuffle size={24} />
       </button>
     </div>

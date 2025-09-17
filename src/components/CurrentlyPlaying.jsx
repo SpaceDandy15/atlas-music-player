@@ -6,7 +6,7 @@ import VolumeControls from "./VolumeControls";
 
 export default function CurrentlyPlaying() {
   return (
-    <div className="flex flex-col items-center gap-6 p-6 rounded-xl shadow bg-[var(--color-midnight)]">
+    <div className="flex flex-col items-start gap-6 p-6 rounded-xl shadow bg-[var(--color-midnight)]">
       <CoverArt />
       <SongTitle title="Painted in Blue" artist="Soul Canvas" />
       <PlayControls />
