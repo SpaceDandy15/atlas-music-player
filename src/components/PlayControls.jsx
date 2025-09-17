@@ -2,7 +2,6 @@ import React from "react";
 import { Shuffle, Rewind, Play, FastForward } from "lucide-react";
 
 export default function PlayControls() {
-
   const activeButton = "play"; // options: "speed", "play", "shuffle", etc.
 
   return (
@@ -11,40 +10,33 @@ export default function PlayControls() {
       <button
         className={`px-3 py-2 font-semibold transition ${
           activeButton === "speed"
-            ? "text-white bg-[var(--color-tahiti)]"
-            : "text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)]"
+            ? "text-white border border-white rounded-md"
+            : "text-[var(--color-tahiti)] hover:border hover:border-white rounded-md"
         }`}
       >
         1x
       </button>
 
       {/* Rewind */}
-      <button className="text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)] transition">
+      <button className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition">
         <Rewind size={24} />
       </button>
 
       {/* Play */}
-      <button
-        className={`transition ${
-          activeButton === "play"
-            ? "text-white bg-[var(--color-bermuda)]"
-            : "text-[var(--color-bermuda)] hover:text-[var(--color-tahiti)]"
-        }`}
-      >
+      <button className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition">
         <Play size={28} />
       </button>
 
       {/* Fast Forward */}
-      <button className="text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)] transition">
+      <button className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition">
         <FastForward size={24} />
       </button>
 
       {/* Shuffle */}
-      <button
-        className={`transition ${
+      <button className={`transition ${
           activeButton === "shuffle"
-            ? "text-white bg-[var(--color-tahiti)]"
-            : "text-[var(--color-tahiti)] hover:text-[var(--color-bermuda)]"
+            ? "text-white border border-white rounded-md"
+            : "text-[var(--color-tahiti)] hover:border hover:border-white rounded-md"
         }`}
       >
         <Shuffle size={24} />
