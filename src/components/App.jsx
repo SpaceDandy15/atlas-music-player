@@ -1,6 +1,7 @@
 import Footer from "./Footer";
 import MusicPlayer from "./MusicPlayer";
 import DarkModeToggle from "./DarkModeToggle";
+import LoadingSkeleton from "./LoadingSkeleton";  
 
 function App() {
   return (

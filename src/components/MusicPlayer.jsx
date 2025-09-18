@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CurrentlyPlaying from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
+import LoadingSkeleton from "./LoadingSkeleton";
 
-// Full playlist with cover art
 const songs = [
   { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55", cover: "/assets/cover1.svg" },
   { title: "Tidal Drift", artist: "Echoes of the Sea", length: "8:02", cover: "/assets/cover2.svg" },
@@ -18,6 +18,17 @@ const songs = [
 
 export default function MusicPlayer() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading data
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000); // 1 second delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <div className="flex flex-col md:flex-row gap-6">

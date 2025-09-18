@@ -3,6 +3,7 @@ import CoverArt from "./CoverArt";
 import SongTitle from "./SongTitle";
 import PlayControls from "./PlayControls";
 import VolumeControls from "./VolumeControls";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function CurrentlyPlaying({ song }) {
   return (
