@@ -3,7 +3,15 @@ import CurrentlyPlaying from "./CurrentlyPlaying";
 import Playlist from "./Playlist";
 import LoadingSkeleton from "./LoadingSkeleton";
 
-const songs = [
+// Define the Song type
+export interface Song {
+  title: string;
+  artist: string;
+  length: string;
+  cover: string;
+}
+
+const songs: Song[] = [
   { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55", cover: "/assets/cover1.svg" },
   { title: "Tidal Drift", artist: "Echoes of the Sea", length: "8:02", cover: "/assets/cover2.svg" },
   { title: "Fading Shadows", artist: "The Emberlight", length: "3:01", cover: "/assets/cover3.svg" },
@@ -17,8 +25,8 @@ const songs = [
 ];
 
 export default function MusicPlayer() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Simulate loading data
   useEffect(() => {

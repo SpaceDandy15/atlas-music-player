@@ -1,7 +1,11 @@
 import React from "react";
-import placeholder from "../assets/placeholder.svg"; // fallback if no src provided
+import placeholder from "../assets/placeholder.svg";
 
-export default function CoverArt({ src }) {
+type CoverArtProps = {
+  src?: string; // falls back to placeholder
+};
+
+export default function CoverArt({ src }: CoverArtProps) {
   return (
     <div className="w-48 h-48 overflow-hidden rounded-lg">
       <img

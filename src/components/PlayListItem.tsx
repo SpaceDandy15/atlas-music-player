@@ -1,12 +1,20 @@
 import React from "react";
 
+type PlayListItemProps = {
+  title?: string;
+  artist?: string;
+  length?: string;
+  selected?: boolean;
+  onClick?: () => void;
+};
+
 export default function PlayListItem({
   title = "Song Title",
   artist = "Artist",
   length = "3:45",
   selected = false,
   onClick,
-}) {
+}: PlayListItemProps) {
   return (
     <div
       className={`flex justify-between items-center px-4 py-2 cursor-pointer transition-colors
