@@ -1,12 +1,12 @@
 import React from "react";
 import { Volume2 } from "lucide-react";
 
-type VolumeControlsProps = {
-  volume: number; // Current volume (0–100)
-  onChange: (value: number) => void; // Callback when slider changes
-};
+interface VolumeControlsProps {
+  volume: number; // 0-100
+  setVolume: (v: number) => void;
+}
 
-export default function VolumeControls({ volume, onChange }: VolumeControlsProps) {
+const VolumeControls: React.FC<VolumeControlsProps> = ({ volume, setVolume }) => {
   return (
     <div className="flex items-center gap-2 w-48">
       {/* Volume icon */}
@@ -18,9 +18,11 @@ export default function VolumeControls({ volume, onChange }: VolumeControlsProps
         min={0}
         max={100}
         value={volume}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(e) => setVolume(Number(e.target.value))}
         className="w-full accent-[var(--color-bermuda)]"
       />
     </div>
   );
-}
+};
+
+export default VolumeControls;
