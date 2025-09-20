@@ -6,25 +6,13 @@ import LoadingSkeleton from "./LoadingSkeleton";
 export interface Song {
   title: string;
   artist: string;
-  length: string;
-  cover: string;
-  src: string; // URL or local path to song file
+  length: string; // mm:ss
+  cover: string;  // cover URL
+  src: string;    // audio file URL
 }
 
-const songs: Song[] = [
-  { title: "Painted in Blue", artist: "Soul Canvas", length: "5:55", cover: "/assets/cover1.svg", src: "/assets/song1.mp3" },
-  { title: "Tidal Drift", artist: "Echoes of the Sea", length: "8:02", cover: "/assets/cover2.svg", src: "/assets/song2.mp3" },
-  { title: "Fading Shadows", artist: "The Emberlight", length: "3:01", cover: "/assets/cover3.svg", src: "/assets/song3.mp3" },
-  { title: "Cosmic Drift", artist: "Solar Flare", length: "5:01", cover: "/assets/cover4.svg", src: "/assets/song4.mp3" },
-  { title: "Urban Serenade", artist: "Midnight Groove", length: "4:54", cover: "/assets/cover5.svg", src: "/assets/song5.mp3" },
-  { title: "Whispers in the Wind", artist: "Rust & Ruin", length: "6:13", cover: "/assets/cover6.svg", src: "/assets/song6.mp3" },
-  { title: "Electric Fever", artist: "Neon Jungle", length: "8:41", cover: "/assets/cover7.svg", src: "/assets/song7.mp3" },
-  { title: "Edge of the Abyss", artist: "Steel Horizon", length: "2:27", cover: "/assets/cover8.svg", src: "/assets/song8.mp3" },
-  { title: "Golden Haze", artist: "Velvet Waves", length: "3:15", cover: "/assets/cover9.svg", src: "/assets/song9.mp3" },
-  { title: "Shatter the Silence", artist: "Thunderclap Echo", length: "8:22", cover: "/assets/cover10.svg", src: "/assets/song10.mp3" },
-];
-
 export default function MusicPlayer() {
+  const [songs, setSongs] = useState<Song[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -32,10 +20,30 @@ export default function MusicPlayer() {
   const [playbackRate, setPlaybackRate] = useState<number>(1);
   const [shuffle, setShuffle] = useState<boolean>(false);
 
-  // Simulate loading data
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
+    const fetchPlaylist = async () => {
+      try {
+        // Fetch the single playlist.json
+        const res = await fetch("/api/v1/songs/playlist.json");
+        const data = await res.json();
+
+        const formattedSongs: Song[] = data.map((song: any) => ({
+          title: song.title,
+          artist: song.artist,
+          length: new Date(song.duration * 1000).toISOString().substr(14, 5), // mm:ss
+          cover: song.cover,
+          src: song.song,
+        }));
+
+        setSongs(formattedSongs);
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Failed to fetch playlist:", err);
+        setIsLoading(false);
+      }
+    };
+
+    fetchPlaylist();
   }, []);
 
   const nextSong = () => {

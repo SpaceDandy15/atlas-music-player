@@ -5,23 +5,41 @@ interface AudioPlayerProps {
   isPlaying: boolean;
   volume: number;       // 0-100
   playbackRate: number; // e.g., 0.5, 1, 2
+  onEnded?: () => void;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, isPlaying, volume, playbackRate }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({
+  src,
+  isPlaying,
+  volume,
+  playbackRate,
+  onEnded,
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    audioRef.current.volume = volume / 100;
-    audioRef.current.playbackRate = playbackRate;
+    audio.volume = volume / 100;
+    audio.playbackRate = playbackRate;
 
     if (isPlaying) {
-      audioRef.current.play().catch((e) => console.error("Playback error:", e));
+      audio.play().catch((e) => console.error("Playback error:", e));
     } else {
-      audioRef.current.pause();
+      audio.pause();
     }
   }, [isPlaying, volume, playbackRate, src]);
+
+  // Handle track end
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !onEnded) return;
+
+    const handleEnded = () => onEnded();
+    audio.addEventListener("ended", handleEnded);
+    return () => audio.removeEventListener("ended", handleEnded);
+  }, [onEnded]);
 
   return <audio ref={audioRef} src={src} />;
 };

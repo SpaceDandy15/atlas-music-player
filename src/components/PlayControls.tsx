@@ -64,8 +64,10 @@ const PlayControls: React.FC<PlayControlsProps> = ({
       {/* Shuffle */}
       <button
         onClick={toggleShuffle}
-        className={`text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition ${
-          shuffle ? "text-[var(--color-bermuda)]" : ""
+        className={`px-2 py-2 rounded-md transition border ${
+          shuffle
+            ? "bg-[var(--color-bermuda)] text-white border-white"
+            : "text-[var(--color-tahiti)] hover:border hover:border-white"
         }`}
       >
         <Shuffle size={24} />

@@ -55,6 +55,7 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         isPlaying={isPlaying}
         volume={volume}
         playbackRate={playbackRate}
+        onEnded={nextSong} // <-- automatically plays next track
       />
     </div>
   );
