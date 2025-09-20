@@ -19,18 +19,18 @@ export default function MusicPlayer() {
   const [volume, setVolume] = useState<number>(50);
   const [playbackRate, setPlaybackRate] = useState<number>(1);
   const [shuffle, setShuffle] = useState<boolean>(false);
+  const [highlightColor, setHighlightColor] = useState<string>("var(--color-bermuda)");
 
   useEffect(() => {
     const fetchPlaylist = async () => {
       try {
-        // Fetch the single playlist.json
         const res = await fetch("/api/v1/songs/playlist.json");
         const data = await res.json();
 
         const formattedSongs: Song[] = data.map((song: any) => ({
           title: song.title,
           artist: song.artist,
-          length: new Date(song.duration * 1000).toISOString().substr(14, 5), // mm:ss
+          length: new Date(song.duration * 1000).toISOString().substr(14, 5),
           cover: song.cover,
           src: song.song,
         }));
@@ -44,6 +44,23 @@ export default function MusicPlayer() {
     };
 
     fetchPlaylist();
+  }, []);
+
+  // Dynamic dark mode detection
+  useEffect(() => {
+    const updateHighlight = () => {
+      const isDark = document.body.classList.contains("dark");
+      setHighlightColor(isDark ? "#FF4D4D" : "var(--color-bermuda)");
+    };
+
+    // Initial check
+    updateHighlight();
+
+    // Observe class changes on <body>
+    const observer = new MutationObserver(() => updateHighlight());
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
   }, []);
 
   const nextSong = () => {
@@ -79,6 +96,7 @@ export default function MusicPlayer() {
         prevSong={prevSong}
         shuffle={shuffle}
         toggleShuffle={toggleShuffle}
+        highlightColor={highlightColor} // dynamic
       />
       <Playlist
         songs={songs}
@@ -87,6 +105,7 @@ export default function MusicPlayer() {
           setCurrentIndex(index);
           setIsPlaying(true);
         }}
+        highlightColor={highlightColor} // pass dynamic color
       />
     </div>
   );

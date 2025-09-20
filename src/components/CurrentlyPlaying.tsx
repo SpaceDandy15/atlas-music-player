@@ -19,6 +19,7 @@ interface CurrentlyPlayingProps {
   prevSong: () => void;
   shuffle: boolean;
   toggleShuffle: () => void;
+  highlightColor: string; // pass from MusicPlayer
 }
 
 const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
@@ -27,6 +28,7 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
   prevSong,
   shuffle,
   toggleShuffle,
+  highlightColor,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
@@ -46,6 +48,7 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         prevSong={prevSong}
         shuffle={shuffle}
         toggleShuffle={toggleShuffle}
+        highlightColor={highlightColor} // dynamic highlight
       />
 
       <VolumeControls volume={volume} setVolume={setVolume} />
@@ -55,7 +58,6 @@ const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
         isPlaying={isPlaying}
         volume={volume}
         playbackRate={playbackRate}
-        onEnded={nextSong} // <-- automatically plays next track
       />
     </div>
   );

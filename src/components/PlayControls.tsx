@@ -10,6 +10,7 @@ interface PlayControlsProps {
   prevSong: () => void;
   shuffle: boolean;
   toggleShuffle: () => void;
+  highlightColor?: string; // optional color for active buttons
 }
 
 const PlayControls: React.FC<PlayControlsProps> = ({
@@ -21,18 +22,28 @@ const PlayControls: React.FC<PlayControlsProps> = ({
   prevSong,
   shuffle,
   toggleShuffle,
+  highlightColor = "#3EE0C9", // default Bermuda green
 }) => {
   const handleSpeedClick = () => {
     const nextRate = playbackRate === 0.5 ? 1 : playbackRate === 1 ? 2 : 0.5;
     setPlaybackRate(nextRate);
   };
 
+  // Returns style object for each button
+  const getButtonStyle = (active: boolean) => ({
+    color: active ? "#fff" : "var(--color-tahiti)",
+    backgroundColor: active ? highlightColor : "transparent",
+    borderColor: active ? highlightColor : "white",
+    transition: "all 0.2s ease",
+  });
+
   return (
     <div className="flex items-center justify-center gap-6">
       {/* Speed Button */}
       <button
         onClick={handleSpeedClick}
-        className="px-3 py-2 font-semibold text-[var(--color-tahiti)] border border-white rounded-md hover:bg-[var(--color-bermuda)]"
+        className="px-3 py-2 font-semibold border rounded-md hover:opacity-80"
+        style={getButtonStyle(playbackRate !== 1)}
       >
         {playbackRate}x
       </button>
@@ -40,7 +51,8 @@ const PlayControls: React.FC<PlayControlsProps> = ({
       {/* Rewind */}
       <button
         onClick={prevSong}
-        className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition"
+        className="px-2 py-2 rounded-md border hover:opacity-80"
+        style={getButtonStyle(false)}
       >
         <Rewind size={24} />
       </button>
@@ -48,7 +60,8 @@ const PlayControls: React.FC<PlayControlsProps> = ({
       {/* Play / Pause */}
       <button
         onClick={onPlayPause}
-        className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition"
+        className="px-2 py-2 rounded-md border hover:opacity-80"
+        style={getButtonStyle(isPlaying)}
       >
         {isPlaying ? <Pause size={28} /> : <Play size={28} />}
       </button>
@@ -56,7 +69,8 @@ const PlayControls: React.FC<PlayControlsProps> = ({
       {/* Fast Forward */}
       <button
         onClick={nextSong}
-        className="text-[var(--color-tahiti)] hover:border hover:border-white rounded-md transition"
+        className="px-2 py-2 rounded-md border hover:opacity-80"
+        style={getButtonStyle(false)}
       >
         <FastForward size={24} />
       </button>
@@ -64,11 +78,8 @@ const PlayControls: React.FC<PlayControlsProps> = ({
       {/* Shuffle */}
       <button
         onClick={toggleShuffle}
-        className={`px-2 py-2 rounded-md transition border ${
-          shuffle
-            ? "bg-[var(--color-bermuda)] text-white border-white"
-            : "text-[var(--color-tahiti)] hover:border hover:border-white"
-        }`}
+        className="px-2 py-2 rounded-md border hover:opacity-80"
+        style={getButtonStyle(shuffle)}
       >
         <Shuffle size={24} />
       </button>

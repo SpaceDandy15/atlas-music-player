@@ -6,6 +6,7 @@ type PlayListItemProps = {
   length?: string;
   selected?: boolean;
   onClick?: () => void;
+  highlightColor?: string;
 };
 
 export default function PlayListItem({
@@ -14,21 +15,22 @@ export default function PlayListItem({
   length = "3:45",
   selected = false,
   onClick,
+  highlightColor = "var(--color-bermuda)", // default highlight
 }: PlayListItemProps) {
   return (
     <div
-      className={`flex justify-between items-center px-4 py-2 cursor-pointer transition-colors
-        ${selected
-          ? "bg-[var(--color-tahiti)] text-white"
-          : "hover:bg-[var(--color-bermuda)] hover:text-black group"
-      }`}
       onClick={onClick}
+      className={`flex justify-between items-center px-4 py-2 cursor-pointer transition-colors`}
+      style={{
+        backgroundColor: selected ? highlightColor : undefined,
+        color: selected ? "#fff" : undefined,
+      }}
     >
       <div className="flex flex-col">
-        <p className="text-sm font-medium text-white group-hover:text-black">{title}</p>
-        <p className="text-xs text-white group-hover:text-black">{artist}</p>
+        <p className="text-sm font-medium">{title}</p>
+        <p className="text-xs">{artist}</p>
       </div>
-      <span className="text-xs text-white group-hover:text-black">{length}</span>
+      <span className="text-xs">{length}</span>
     </div>
   );
 }
