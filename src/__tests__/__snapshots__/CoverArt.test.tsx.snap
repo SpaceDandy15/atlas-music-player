@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CoverArt Component > renders correctly with a provided src 1`] = `null`;
+
+exports[`CoverArt Component > renders correctly without a src (uses placeholder) 1`] = `null`;

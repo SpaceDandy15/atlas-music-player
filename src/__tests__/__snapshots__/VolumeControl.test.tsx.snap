@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`VolumeControls Component > renders correctly at volume 0 1`] = `null`;
+
+exports[`VolumeControls Component > renders correctly at volume 100 1`] = `null`;
+
+exports[`VolumeControls Component > renders correctly with default volume 1`] = `null`;

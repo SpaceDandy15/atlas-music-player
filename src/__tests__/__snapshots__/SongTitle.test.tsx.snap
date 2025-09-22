@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SongTitle Component > renders correctly with custom title and artist 1`] = `null`;
+
+exports[`SongTitle Component > renders correctly with default props 1`] = `null`;

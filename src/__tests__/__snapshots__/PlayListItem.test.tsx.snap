@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PlayListItem Component > renders correctly when selected with highlight color 1`] = `null`;
+
+exports[`PlayListItem Component > renders correctly with default props 1`] = `null`;
