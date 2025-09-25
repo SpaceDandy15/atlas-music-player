@@ -1,14 +1,18 @@
-// vite.config.ts
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   test: {
-    globals: true,                 // enables describe/it/expect without imports
-    environment: 'jsdom',          // needed for React components
-    setupFiles: './setupTests.ts', // runs MSW + jest-dom
-    include: ['src/__tests__/**/*.test.{ts,tsx}'], // test pattern
+    globals: true,
+    environment: 'jsdom',            // for React
+    setupFiles: './setupTests.ts',   // MSW setup
+    coverage: {
+      provider: 'v8',                // use V8 coverage provider
+      reporter: ['text', 'html'],    // CLI + HTML report
+      all: true,                     // include all files, not just tested
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/__tests__/**', 'node_modules/**']
+    }
   },
 });
