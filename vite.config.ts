@@ -12,7 +12,8 @@ export default defineConfig({
       reporter: ['text', 'html'],    // CLI + HTML report
       all: true,                     // include all files, not just tested
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/__tests__/**', 'node_modules/**']
+      exclude: ['src/__tests__/**', 'node_modules/**'],
+      reportsDirectory: 'coverage', // output directory
     }
   },
 });
